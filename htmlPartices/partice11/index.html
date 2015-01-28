@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<HTML>
+   <HEAD>
+      <TITLE>
+         A Small Hello 
+      </TITLE>
+      <SCRIPT>
+      var imgData;
+      window.onload = function (){
+          var image = new Image();
+          image.crossOrigin = "anonymous";
+          image.src = 'https://dl.dropboxusercontent.com/u/139992952/stackoverflow/colorhouse.png';
+
+          image.onload = function(){
+          var canvas = document.getElementById('canvas');
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(image, 0, 0);
+          imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+          for (var i=0;i<imgData.data.length;i+=4)
+          {
+            imgData.data[i]=255-imgData.data[i];
+            imgData.data[i+1]=255-imgData.data[i+1];
+            imgData.data[i+2]=255-imgData.data[i+2];
+            imgData.data[i+3]=255;
+          }
+          ctx.putImageData(imgData,0,0);
+        }
+      }
+      </SCRIPT>
+   </HEAD>
+<BODY>
+   <canvas id="canvas" width="512" height="512" >
+     Your browser does not support the HTML5 canvas tag.
+   </canvas>
+</BODY>
+</HTML>
